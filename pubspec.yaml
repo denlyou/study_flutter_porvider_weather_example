@@ -1,0 +1,25 @@
+name: exam
+description: A new Flutter project.
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # cupertino_icons: ^0.1.2
+  provider: ^3.1.0 # https://pub.dev/packages/provider
+  http: ^0.12.0+2 # https://pub.dev/packages/http
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/images/ # 내부에 포함할 이미지들 (디렉토리 째로 지정)
+    - assets/data/city.korea.list.json # 날씨 관련 우리나라 지역 데이터
