@@ -13,7 +13,7 @@ class IntroPage extends StatelessWidget {
             () => Navigator.pushReplacementNamed(context, "/home")
         );
 
-            // 인트로 화면 반환
+        // 인트로 화면 반환
         return Scaffold(
             body: Container(
                 color: Color.fromRGBO(37, 97, 161, 1.0),

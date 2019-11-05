@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
             providers: [
                 Provider(builder: (context) => CityModel()), // 도시 정보 목록을 가지고 있고 + 한번 읽어오면 변하지 않음!
                 ChangeNotifierProvider(builder: (context) => WeatherModel()), // 홈(날씨)화면 표시용 데이터들
-                ChangeNotifierProvider(builder: (context) => SearchKeywordModel()), // 홈(날씨)화면 표시용 데이터들
+                ChangeNotifierProvider(builder: (context) => SearchKeywordModel()), // 검색 키워드
                 ChangeNotifierProxyProvider<CityModel, FavoriteCityModel> ( // 즐겨찾는 도시
                     builder: (context, cityModel, previousFavCity) => FavoriteCityModel(cityModel, previousFavCity)
                 ),

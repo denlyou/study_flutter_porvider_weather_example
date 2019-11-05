@@ -11,6 +11,7 @@ class HomePage extends StatelessWidget {
     Widget build(BuildContext context) {
         Common.log4method("HomePage.build");
 
+        // 기본 지역(인천) ID 가져와서 네트워킹
         final int cityId = Provider.of<WeatherModel>(context, listen: false).cityId;
         WeatherNetwork.getData4CityId(cityId).then( (WeatherResponse weatherResponse){
             Provider.of<WeatherModel>(context, listen: false).setNowWeater(weatherResponse);
