@@ -1,11 +1,19 @@
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:exam/common.dart';
+import 'package:exam/states/city.dart';
 
 /// 인트로 페이지 (Scaffold Widget)
 class IntroPage extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         Common.log4method("IntroPage.build");
+
+        // 0.2초후 City 모델 데이터 읽기어두기
+        new Future.delayed(
+            Duration(milliseconds: 200),
+            () => Provider.of<CityModel>(context, listen: false).initData()
+        );
 
         // 2초후 페이지 전환
         new Future.delayed(

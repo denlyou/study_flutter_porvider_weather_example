@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:exam/common.dart';
 import 'package:exam/models/city.dart';
+import 'package:exam/states/city.dart';
 
 class FavoriteCityModel extends ChangeNotifier {
     final CityModel _cityModel;

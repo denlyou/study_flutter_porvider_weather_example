@@ -1,10 +1,11 @@
-import 'package:exam/models/fav_city.dart';
-import 'package:exam/models/search_keyword.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:exam/common.dart';
-import 'package:exam/models/weather.dart';
 import 'package:exam/models/city.dart';
+import 'package:exam/states/weather.dart';
+import 'package:exam/states/fav_city.dart';
+import 'package:exam/states/city.dart';
+import 'package:exam/states/search_keyword.dart';
 
 /// 도시 검색 페이지
 class SearchPage extends StatelessWidget {

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:exam/common.dart';
+import 'package:exam/models/weather.dart';
+import 'package:exam/states/weather.dart';
 import 'package:exam/networks/weather_api.dart';
 import 'package:exam/networks/weather_response.dart';
-import 'package:exam/models/weather.dart';
 import 'package:exam/views/home/fav_list.dart';
 
 class HomePage extends StatelessWidget {
