@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:exam/common.dart';
 import 'package:exam/networks/weather_api.dart';
-import 'package:exam/networks/weather_response.dart';
 import 'package:exam/states/fav_city.dart';
 import 'package:exam/states/weather.dart';
 
@@ -32,9 +31,7 @@ class FavoriteCityList extends StatelessWidget {
                     onTap: () async {
                         Common.log4panic(city.name);
                         Provider.of<WeatherModel>(context, listen: false).cityId = city.id;
-                        WeatherNetwork.getData4CityId(city.id).then( (WeatherResponse weatherResponse){
-                            Provider.of<WeatherModel>(context, listen: false).setNowWeater(weatherResponse);
-                        });
+                        WeatherNetwork.getData4CityIdAndUpdateTrigger(city.id, context);
                     },
                 );
             }

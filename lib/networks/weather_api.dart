@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:exam/common.dart';
+import 'package:exam/states/weather.dart';
 import 'package:exam/networks/weather_response.dart';
 
 class WeatherNetwork {
@@ -19,7 +22,22 @@ class WeatherNetwork {
             return WeatherResponse.fromJson(jsonDecode(response.body));
         } catch (e) {
             Common.log4error(e);
-            return null;
+            rethrow;
+            // return null;
         }
+    }
+
+    /// 통신 + Porvider 데이터 모델 업데이트 
+    static void getData4CityIdAndUpdateTrigger(int cityId, BuildContext c) {
+        final WeatherModel weatherState = Provider.of<WeatherModel>(c, listen: false);
+        weatherState.setWeaterStatus( WeatherStatus.waiting );
+        getData4CityId(cityId).then( (WeatherResponse weatherResponse){
+            weatherState.setWeaterStatus( WeatherStatus.done );
+            weatherState.setNowWeater(weatherResponse);
+        }).catchError( (e){
+            Common.log4panic(e);
+            weatherState.errorException = e;
+            weatherState.setWeaterStatus(WeatherStatus.error, error: e);
+        });
     }
 }

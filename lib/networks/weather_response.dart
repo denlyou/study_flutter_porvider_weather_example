@@ -51,8 +51,8 @@ class WeatherResponseCoordData {
     double lat, lon;
     WeatherResponseCoordData(this.lat, this.lon);
     WeatherResponseCoordData.fromJson(Map<String, dynamic> json) :
-        lat=json["lat"].toDouble(),
-        lon=json["lon"].toDouble()
+        lat=json["lat"]?.toDouble(),
+        lon=json["lon"]?.toDouble()
     ;
 }
 
@@ -79,8 +79,8 @@ class WeatherResponseMainData {
         temp=double.parse("${json["temp"]}") - double.parse("273.15"),
         pressure=json["pressure"],
         humidity=json["humidity"],
-        tempMin=json["temp_min"].toDouble(),
-        tempMax=json["temp_max"].toDouble()
+        tempMin=json["temp_min"]?.toDouble(),
+        tempMax=json["temp_max"]?.toDouble()
     ;
 }
 
@@ -90,9 +90,9 @@ class WeatherResponseWindData {
     double gust; //
     WeatherResponseWindData(this.speed, this.deg, this.gust);
     WeatherResponseWindData.fromJson(Map<String, dynamic> json) :
-        speed=json["speed"].toDouble(),
+        speed=json["speed"]?.toDouble(),
         deg=json["deg"],
-        gust=json["gust"]
+        gust=json["gust"]?.toDouble()
     ;
 }
 
@@ -105,18 +105,20 @@ class WeatherResponseCloudsData {
 }
 
 class WeatherResponseRainData {
-    int h1, h3;
+    double h1, h3;
     WeatherResponseRainData(this.h1, this.h3);
     WeatherResponseRainData.fromJson(Map<String, dynamic> json) :
-        h1=json["1h"], h3=json["3h"]
+        h1=json["1h"]?.toDouble(),
+        h3=json["3h"]?.toDouble()
     ;
 }
 
 class WeatherResponseSnowData {
-    int h1, h3;
+    double h1, h3;
     WeatherResponseSnowData(this.h1, this.h3);
     WeatherResponseSnowData.fromJson(Map<String, dynamic> json) :
-        h1=json["1h"], h3=json["3h"]
+        h1=json["1h"]?.toDouble(),
+        h3=json["3h"]?.toDouble()
     ;
 }
 
@@ -129,7 +131,7 @@ class WeatherResponseSysData {
     WeatherResponseSysData.fromJson(Map<String, dynamic> json) :
         type=json["type"],
         id=json["id"],
-        message=json["message"],
+        message=json["message"]?.toDouble(),
         country=json["country"],
         sunrise=json["sunrise"],
         sunset=json["sunset"]

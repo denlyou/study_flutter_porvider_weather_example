@@ -4,7 +4,6 @@ import 'package:exam/common.dart';
 import 'package:exam/models/weather.dart';
 import 'package:exam/states/weather.dart';
 import 'package:exam/networks/weather_api.dart';
-import 'package:exam/networks/weather_response.dart';
 import 'package:exam/views/home/fav_list.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,9 +13,7 @@ class HomePage extends StatelessWidget {
 
         // 기본 지역(인천) ID 가져와서 네트워킹
         final int cityId = Provider.of<WeatherModel>(context, listen: false).cityId;
-        WeatherNetwork.getData4CityId(cityId).then( (WeatherResponse weatherResponse){
-            Provider.of<WeatherModel>(context, listen: false).setNowWeater(weatherResponse);
-        });
+        WeatherNetwork.getData4CityIdAndUpdateTrigger(cityId, context);
 
         return Scaffold(
             body: _HomeBody(),
@@ -28,11 +25,9 @@ class HomePage extends StatelessWidget {
                         icon: Icon(Icons.search),
                         onPressed: () async { // 버튼 누르면 검색 화면으로 전환
                             final cityId = await Navigator.pushNamed(context, "/search");
-                            // Common.log4panic(cityId);
                             if(cityId == null) return;
-                            WeatherNetwork.getData4CityId(cityId).then( (WeatherResponse weatherResponse){
-                                Provider.of<WeatherModel>(context, listen: false).setNowWeater(weatherResponse);
-                            });
+                            // 선택해서 돌아오면
+                            WeatherNetwork.getData4CityIdAndUpdateTrigger(cityId, context);
                         }
                     ),
                 ],
@@ -53,10 +48,13 @@ class _HomeBody extends StatelessWidget {
             children: <Widget>[
                 Expanded(
                     child: Consumer<WeatherModel>(
-                        builder: (context, weatherModel, child) {
+                        builder: (context, weatherState, child) {
                             Common.log4method("HomePage > _HomeBody.build > Consumer<WeatherModel>");
-
-                            return (weatherModel.nowWeather != null) ? _WeatherWidget(weatherModel.nowWeather) :
+                            Common.log4warning(weatherState.status);
+                            // 에러면
+                            if (weatherState.status == WeatherStatus.error) return Common.buildErrorScaffold(weatherState.errorException);
+                            // 로딩중 또는 완료
+                            return (weatherState.status == WeatherStatus.done) ? _WeatherWidget(weatherState.nowWeather) :
                                 Center(child: CircularProgressIndicator()); // 로딩 화면인 척..
                         }
                     ),
