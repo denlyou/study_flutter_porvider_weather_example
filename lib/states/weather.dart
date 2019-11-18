@@ -14,7 +14,7 @@ class WeatherModel extends ChangeNotifier {
     Weather get nowWeather => _nowWeather;
     WeatherStatus get status => _status;
 
-    void setWeaterStatus(WeatherStatus status, { Exception error = null }){
+    void setWeaterStatus(WeatherStatus status, { Exception error }){
         _status = status;
         errorException = error;
         notifyListeners();
