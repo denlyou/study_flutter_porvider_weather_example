@@ -1,9 +1,12 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:exam/common.dart';
 import 'package:exam/models/weather.dart';
 import 'package:exam/states/weather.dart';
+import 'package:exam/states/screen_size.dart';
 import 'package:exam/networks/weather_api.dart';
+// import 'package:exam/networks/weather_response.dart';
 import 'package:exam/views/home/fav_list.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,9 +14,12 @@ class HomePage extends StatelessWidget {
     Widget build(BuildContext context) {
         Common.log4method("HomePage.build");
 
-        // 기본 지역(인천) ID 가져와서 네트워킹
-        final int cityId = Provider.of<WeatherModel>(context, listen: false).cityId;
-        WeatherNetwork.getData4CityIdAndUpdateTrigger(cityId, context);
+        new Future.delayed(Duration(milliseconds: 1), () {
+            // 기본 지역(인천) ID 가져와서 네트워킹
+            final int cityId = Provider.of<WeatherModel>(context, listen: false).cityId;
+            WeatherNetwork.getData4CityIdAndUpdateTrigger(cityId, context);
+        });
+        
 
         return Scaffold(
             body: _HomeBody(),
@@ -24,6 +30,7 @@ class HomePage extends StatelessWidget {
                     IconButton(
                         icon: Icon(Icons.search),
                         onPressed: () async { // 버튼 누르면 검색 화면으로 전환
+                            // Navigator.pushNamed(context, "/search");
                             final cityId = await Navigator.pushNamed(context, "/search");
                             if(cityId == null) return;
                             // 선택해서 돌아오면
@@ -41,13 +48,16 @@ class _HomeBody extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         Common.log4method("HomePage > _HomeBody.build");
+        // final screenWidth = MediaQuery.of(context).size.width;
+        final screenWidth = Provider.of<ScreenSizeModel>(context, listen: false).width.toDouble();
 
         return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
                 Expanded(
-                    child: Consumer<WeatherModel>(
+                    child: // Text("text")
+                    Consumer<WeatherModel>(
                         builder: (context, weatherState, child) {
                             Common.log4method("HomePage > _HomeBody.build > Consumer<WeatherModel>");
                             Common.log4warning(weatherState.status);
@@ -59,10 +69,11 @@ class _HomeBody extends StatelessWidget {
                         }
                     ),
                 ),
-                SizedBox(
-                    width: MediaQuery.of(context).size.width,
+                SizedBox(       
+                    width: screenWidth,
                     height: 48,
-                    child: FavoriteCityList(),
+                    child: // FavoriteCityList(),
+                    Container(color: Colors.amber)
                 )
             ],
         );

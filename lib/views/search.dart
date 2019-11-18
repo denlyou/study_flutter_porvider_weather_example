@@ -19,7 +19,6 @@ class SearchPage extends StatelessWidget {
                 backgroundColor: Colors.purple,
                 title: Text("도시 검색"),
             ),
-            // body: _HomeBody(),
             body: Column(
                 children: <Widget>[
                     _SearchInputBar(),
@@ -60,7 +59,7 @@ class _SearchInputBarState extends State<_SearchInputBar> {
 class _CityListview extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
-        Common.log4method("SearchPage>_SearchBar.build");
+        Common.log4method("SearchPage>_CityListview.build");
 
         // 데이터 읽어오기
         final String searchKeyword = Provider.of<SearchKeywordModel>(context).searchKeyword;

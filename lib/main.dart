@@ -5,6 +5,7 @@ import 'package:exam/states/weather.dart';
 import 'package:exam/states/city.dart';
 import 'package:exam/states/fav_city.dart';
 import 'package:exam/states/search_keyword.dart';
+import 'package:exam/states/screen_size.dart';
 import 'package:exam/views/intro.dart';
 import 'package:exam/views/home.dart';
 import 'package:exam/views/search.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
 
         return MultiProvider( // 멀티 프로바이더를 사용
             providers: [
+                Provider(builder: (context) => ScreenSizeModel()), // 화면 크기 정보를 가지고 있을 모델
                 Provider(builder: (context) => CityModel()), // 도시 정보 목록을 가지고 있고 + 한번 읽어오면 변하지 않음!
                 ChangeNotifierProvider(builder: (context) => WeatherModel()), // 홈(날씨)화면 표시용 데이터들
                 ChangeNotifierProvider(builder: (context) => SearchKeywordModel()), // 검색 키워드
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
                 ),
             ],
             /// 머터리얼앱 사용
-            child:  MaterialApp(
+            child: MaterialApp(
                 title: 'Weather Provider Demo',
                 initialRoute: '/',
                 routes: {
