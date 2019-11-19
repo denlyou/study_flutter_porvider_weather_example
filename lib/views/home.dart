@@ -17,10 +17,11 @@ class HomePage extends StatelessWidget {
 
         new Future.delayed(Duration(milliseconds: 1), () {
             // if( ModalRoute.of(context).settings.name == routeName ) {
+            if( Provider.of<CommonModel>(context, listen: false).isNavStackOnSearchScreen == false ){
                 // 기본 지역(인천) ID 가져와서 네트워킹
                 final int cityId = Provider.of<WeatherModel>(context, listen: false).cityId;
                 WeatherNetwork.getData4CityIdAndUpdateTrigger(cityId, context);
-            // }
+            }
         });
         
         return Scaffold(
@@ -32,8 +33,10 @@ class HomePage extends StatelessWidget {
                     IconButton(
                         icon: Icon(Icons.search),
                         onPressed: () async { // 버튼 누르면 검색 화면으로 전환
-                            // Navigator.pushNamed(context, "/search");
+                            final commonState = Provider.of<CommonModel>(context, listen: false);
+                            commonState.isNavStackOnSearchScreen = true;
                             final cityId = await Navigator.pushNamed(context, "/search");
+                            commonState.isNavStackOnSearchScreen = false;
                             if(cityId == null) return;
                             // 선택해서 돌아오면
                             WeatherNetwork.getData4CityIdAndUpdateTrigger(cityId, context);

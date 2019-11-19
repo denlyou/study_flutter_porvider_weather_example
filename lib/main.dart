@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
 
         return MultiProvider( // 멀티 프로바이더를 사용
             providers: [
-                Provider(builder: (context) => CommonModel()), // 현재라우트, 화면 크기 등 정보를 가지고 있을 모델
+                Provider(builder: (context) => CommonModel()), // 공용 state(화면 크기 등 정보를 가지고 있을 모델)
                 Provider(builder: (context) => CityModel()), // 도시 정보 목록을 가지고 있고 + 한번 읽어오면 변하지 않음!
                 ChangeNotifierProvider(builder: (context) => WeatherModel()), // 홈(날씨)화면 표시용 데이터들
                 ChangeNotifierProvider(builder: (context) => SearchKeywordModel()), // 검색 키워드

@@ -11,16 +11,14 @@ class IntroPage extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         Common.log4method("IntroPage.build");
-        
-        final commonState = Provider.of<CommonModel>(context, listen: false);
-        // commonState.currentRouteName = routeName;
-        commonState.setScreenSize( MediaQuery.of(context).size );
 
-        // 0.2초후 City 모델 데이터 읽기어두기
-        new Future.delayed(
-            Duration(milliseconds: 200),
-            () => Provider.of<CityModel>(context, listen: false).initData()
-        );
+        // 0.2초후 
+        new Future.delayed( Duration(milliseconds: 200), () {
+            // City 모델 데이터 읽기어두기
+            Provider.of<CityModel>(context, listen: false).initData();
+            // 화면 사이즈를 저장
+            Provider.of<CommonModel>(context, listen: false).setScreenSize( MediaQuery.of(context).size );
+        });
 
         // 2초후 페이지 전환
         new Future.delayed(
