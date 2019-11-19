@@ -2,16 +2,19 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:exam/common.dart';
 import 'package:exam/states/city.dart';
-import 'package:exam/states/screen_size.dart';
+import 'package:exam/states/common.dart';
 
 /// 인트로 페이지 (Scaffold Widget)
 class IntroPage extends StatelessWidget {
+    static const String routeName = '/';
+
     @override
     Widget build(BuildContext context) {
         Common.log4method("IntroPage.build");
-
-        // 화면 사이즈 모델 세팅
-        Provider.of<ScreenSizeModel>(context, listen: false).init( MediaQuery.of(context).size );
+        
+        final commonState = Provider.of<CommonModel>(context, listen: false);
+        // commonState.currentRouteName = routeName;
+        commonState.setScreenSize( MediaQuery.of(context).size );
 
         // 0.2초후 City 모델 데이터 읽기어두기
         new Future.delayed(

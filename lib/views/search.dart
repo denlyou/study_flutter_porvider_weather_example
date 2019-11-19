@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:exam/common.dart';
 import 'package:exam/models/city.dart';
+import 'package:exam/states/common.dart';
 import 'package:exam/states/weather.dart';
 import 'package:exam/states/fav_city.dart';
 import 'package:exam/states/city.dart';
@@ -9,10 +10,11 @@ import 'package:exam/states/search_keyword.dart';
 
 /// 도시 검색 페이지
 class SearchPage extends StatelessWidget {
+    static const String routeName = '/search';
+    
     @override
     Widget build(BuildContext context) {
         Common.log4method("SearchPage.build");
-
         // 화면 세팅
         return Scaffold(
             appBar: AppBar(
